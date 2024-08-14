@@ -1,4 +1,4 @@
-import { BaseController, GeolocationData, useGeolocation } from "../../../packages/stimulus-library";
+import { BaseController, GeolocationData, useGeolocation } from "stimulus-library";
 
 export class GeolocationController extends BaseController {
 

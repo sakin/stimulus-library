@@ -10,12 +10,12 @@ export function useEventListener(controller: Controller, element: Document | Win
     handler = handler.bind(controller);
   }
 
-  let eventNames = wrapArray(eventNameOrNames);
-  let setup = () => eventNames.forEach(eventName => element.addEventListener(eventName, handler, opts));
-  let teardown = () => eventNames.forEach(eventName => element.removeEventListener(eventName, handler));
+  const eventNames = wrapArray(eventNameOrNames);
+  const setup = () => eventNames.forEach(eventName => element.addEventListener(eventName, handler, opts));
+  const teardown = () => eventNames.forEach(eventName => element.removeEventListener(eventName, handler));
 
   useMixin(controller, setup, teardown);
-  return {setup, teardown};
+  return { setup, teardown };
 }
 
 export function useEventListeners(controller: Controller, element: Document | Window | HTMLElement, eventNameOrNames: string | string[], handler: (...args: any[]) => void, opts?: AddEventListenerOptions & { debounce?: number }) {
@@ -29,10 +29,10 @@ export function useCollectionEventListener(
   handler: (...args: any[]) => void,
   opts?: AddEventListenerOptions & { debounce?: number },
 ) {
-  let handlers: Array<{ setup: () => void, teardown: () => void, }> = [];
+  const handlers: Array<{ setup: () => void, teardown: () => void, }> = [];
   elements.forEach(el => {
-    let {setup, teardown} = useEventListener(controller, el, eventNameOrNames, handler, opts);
-    handlers.push({setup, teardown});
+    const { setup, teardown } = useEventListener(controller, el, eventNameOrNames, handler, opts);
+    handlers.push({ setup, teardown });
   });
   return [
     () => handlers.forEach(h => h.setup()),

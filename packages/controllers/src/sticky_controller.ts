@@ -4,7 +4,7 @@ import { useInjectedElement } from "@stimulus-library/mixins";
 export class StickyController extends BaseController {
 
   static classes = ["stuck"];
-  static values = {mode: String};
+  static values = { mode: String };
 
   declare addStuckClasses: (el?: HTMLElement) => void;
   declare removeStuckClasses: (el?: HTMLElement) => void;
@@ -18,13 +18,13 @@ export class StickyController extends BaseController {
     return ["stuck"];
   }
 
-  get _mode(): 'beforebegin' | 'afterend' {
+  get _mode(): "beforebegin" | "afterend" {
     if (this.hasModeValue) {
-      if (!['top', 'bottom'].includes(this.modeValue)) {
+      if (!["top", "bottom"].includes(this.modeValue)) {
         throw new Error(`The modeValue provided '${this.modeValue}' is not one of the recognised configuration options`);
       }
-      if (this.modeValue === 'top') {
-        return 'beforebegin';
+      if (this.modeValue === "top") {
+        return "beforebegin";
       }
     }
     return "afterend";

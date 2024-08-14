@@ -1,7 +1,7 @@
 import { type Duration } from "date-fns";
-import formatDuration from "date-fns/formatDuration";
-import intervalToDuration from "date-fns/intervalToDuration";
-import toDate from "date-fns/toDate";
+import { formatDuration } from "date-fns/formatDuration";
+import { intervalToDuration } from "date-fns/intervalToDuration";
+import { toDate } from "date-fns/toDate";
 import { BaseController } from "@stimulus-library/utilities";
 import { useInterval } from "@stimulus-library/mixins";
 
@@ -20,20 +20,26 @@ export class DurationController extends BaseController {
   declare readonly hasTimestampValue: boolean;
   declare _clearInterval: () => void;
 
-  get _format(): string[] {
-    return [
+  get _format(): (keyof Duration)[] {
+    const keys: (keyof Duration)[] = [
       "years",
       "months",
       "weeks",
       "days",
       "hours",
-      ...(this._minutes ? ["minutes"] : []),
-      ...(this._seconds ? ["seconds"] : []),
     ];
+    if (this._minutes) {
+      keys.push("minutes");
+    }
+    if (this._seconds) {
+      keys.push("seconds");
+    }
+
+    return keys;
   }
 
   get _output(): string {
-    let {years, months, weeks, days, hours, minutes, seconds} = this._duration;
+    let { years, months, weeks, days, hours, minutes, seconds } = this._duration;
 
     years ||= 0;
     months ||= 0;
@@ -43,14 +49,14 @@ export class DurationController extends BaseController {
     minutes ||= 0;
     seconds ||= 0;
 
-    let largeDenominators = [years, months, weeks, days, hours];
+    const largeDenominators = [years, months, weeks, days, hours];
 
     if (!this._minutes && !this._seconds && largeDenominators.every((x) => x === 0)) {
       minutes = minutes + seconds / 60.0;
       return `${(minutes / 60).toFixed(1)} hours`;
     }
 
-    return formatDuration(this._duration, {format: this._format, delimiter: ", "});
+    return formatDuration(this._duration, { format: this._format, delimiter: ", " });
   }
 
   get _seconds(): boolean {
@@ -70,7 +76,7 @@ export class DurationController extends BaseController {
   }
 
   get _duration(): Duration {
-    return intervalToDuration({start: new Date(), end: this._timestamp});
+    return intervalToDuration({ start: new Date(), end: this._timestamp });
   }
 
   get _tickInterval() {

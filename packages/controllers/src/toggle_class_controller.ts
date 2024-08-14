@@ -98,21 +98,21 @@ export class ToggleClassController extends BaseController {
     return {};
   }
 
-  on(event?: Event) {
+  on(_event?: Event) {
     this.toggleTargets.forEach((target) => {
       this._elementToggleStatus(target);
       this._elementOn(target);
     });
   }
 
-  off(event?: Event) {
+  off(_event?: Event) {
     this.toggleTargets.forEach((target) => {
       this._elementToggleStatus(target);
       this._elementOff(target);
     });
   }
 
-  toggle(event?: Event) {
+  toggle(_event?: Event) {
     this.toggleTargets.forEach((target) => {
       this._elementToggleStatus(target);
       this._elementToggle(target);
@@ -132,17 +132,17 @@ export class ToggleClassController extends BaseController {
   }
 
   private _elementToggle(el: HTMLElement) {
-    let classes = this.classValue.split(" ");
+    const classes = this.classValue.split(" ");
     classes.forEach((klass) => el.classList.toggle(klass));
   }
 
   private _elementOn(el: HTMLElement) {
-    let classes = this.classValue.split(" ");
+    const classes = this.classValue.split(" ");
     classes.forEach((klass) => el.classList.toggle(klass, true));
   }
 
   private _elementOff(el: HTMLElement) {
-    let classes = this.classValue.split(" ");
+    const classes = this.classValue.split(" ");
     classes.forEach((klass) => el.classList.toggle(klass, false));
   }
 

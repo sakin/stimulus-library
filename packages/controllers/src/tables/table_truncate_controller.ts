@@ -47,7 +47,7 @@ export class TableTruncateController extends BaseController {
   }
 
   connect() {
-    useMutationObserver(this, this._tableBody, this.mutate, {childList: true});
+    useMutationObserver(this, this._tableBody, this.mutate, { childList: true });
 
     requestAnimationFrame(() => {
       this.truncate();
@@ -82,7 +82,7 @@ export class TableTruncateController extends BaseController {
     this._hideElement(this.showMoreTarget);
   }
 
-  mutate(entries: MutationRecord[]) {
+  mutate(_entries: MutationRecord[]) {
     if (this._tableRows.length >= this._limit && !this._expanded) {
       this._reTruncate();
     }

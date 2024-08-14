@@ -55,13 +55,13 @@ export class LightboxImageController extends BaseController {
   }
 
   open() {
-    let element = this.el as HTMLImageElement;
+    const element = this.el as HTMLImageElement;
     if (this._dialog) {
       return;
     }
     this._dialog = document.createElement("dialog");
 
-    let image = document.createElement("img") as HTMLImageElement;
+    const image = document.createElement("img") as HTMLImageElement;
     image.className = this._imageClassName;
     image.src = this._src;
     image.srcset = this._srcSet;
@@ -71,7 +71,7 @@ export class LightboxImageController extends BaseController {
     element.insertAdjacentElement("afterend", this._dialog);
     this._dialog.className = this._modalClassName;
     this._dialog.showModal();
-    scrollToElement(this._dialog, {behavior: "smooth", block: "end"}).catch(() => this._dialog!.scrollIntoView(false));
+    scrollToElement(this._dialog, { behavior: "smooth", block: "end" }).catch(() => this._dialog!.scrollIntoView(false));
     useEventListener(this, this._dialog, "click", this.close);
     useEventListener(this, this._dialog, "cancel", this.close);
     useEventListener(this, this._dialog, "close", this.close);
@@ -83,7 +83,7 @@ export class LightboxImageController extends BaseController {
       this._dialog.close();
       this._dialog.remove();
       this._dialog = null;
-      scrollToElement(this.el, {behavior: "smooth", block: "end"}).catch(() => this.el.scrollIntoView(false));
+      scrollToElement(this.el, { behavior: "smooth", block: "end" }).catch(() => this.el.scrollIntoView(false));
     }
   }
 

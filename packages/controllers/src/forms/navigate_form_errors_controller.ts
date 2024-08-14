@@ -35,7 +35,7 @@ export class NavigateFormErrorsController extends BaseController {
   }
 
   get _previousIndex(): number {
-    let index = this._index - 1;
+    const index = this._index - 1;
     if (index < 0) {
       return 0;
     }
@@ -43,7 +43,7 @@ export class NavigateFormErrorsController extends BaseController {
   }
 
   get _nextIndex(): number {
-    let index = this._index + 1;
+    const index = this._index + 1;
     if (index > this._errors.length - 1) {
       return this._errors.length - 1;
     }
@@ -86,7 +86,7 @@ export class NavigateFormErrorsController extends BaseController {
       this._firstClick = false;
       this._toggleButtons();
     }
-    await scrollToElement(this._currentError, {behavior: "smooth", block: "center", inline: "center"});
+    await scrollToElement(this._currentError, { behavior: "smooth", block: "center", inline: "center" });
     this._updateClasses();
   }
 
@@ -98,7 +98,7 @@ export class NavigateFormErrorsController extends BaseController {
     } else {
       this.indexValue = this._nextIndex;
     }
-    await scrollToElement(this._currentError, {behavior: "smooth", block: "center", inline: "center"});
+    await scrollToElement(this._currentError, { behavior: "smooth", block: "center", inline: "center" });
     this._updateClasses();
   }
 
@@ -110,7 +110,7 @@ export class NavigateFormErrorsController extends BaseController {
     } else {
       this.indexValue = this._previousIndex;
     }
-    await scrollToElement(this._currentError, {behavior: "smooth", block: "center", inline: "center"});
+    await scrollToElement(this._currentError, { behavior: "smooth", block: "center", inline: "center" });
     this._updateClasses();
   }
 

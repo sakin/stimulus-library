@@ -42,7 +42,7 @@ export class SignalInputController extends BaseController {
   connect() {
     useEventBus(this, signalConnectEvent(this._name), () => this.emitValue());
     useEventBus(this, signalValueEvent(this._name), this._onSignal);
-    useEventListeners(this, this.el, ["input", "change"], this.emitValue, {debounce: this._debounceTimeout || undefined});
+    useEventListeners(this, this.el, ["input", "change"], this.emitValue, { debounce: this._debounceTimeout || undefined });
     requestAnimationFrame(() => this.emitValue());
   }
 
@@ -52,16 +52,16 @@ export class SignalInputController extends BaseController {
     if (isHTMLInputElement(this.el) && this.el.type === "checkbox") {
       value = this.el.checked ? "true" : "false";
     } else if (isHTMLInputElement(this.el) && this.el.type === "radio") {
-      let selectedValue = getAllRadiosInGroup(this.el).find(el => el.checked)?.value;
+      const selectedValue = getAllRadiosInGroup(this.el).find(el => el.checked)?.value;
       value = selectedValue ? selectedValue : "";
     }
 
-    this.dispatchEvent(this.el, signalValueEvent(this._name), {detail: {value}});
-    EventBus.emit(signalValueEvent(this._name), {element: this.el, value} as SignalPayload);
+    this.dispatchEvent(this.el, signalValueEvent(this._name), { detail: { value } });
+    EventBus.emit(signalValueEvent(this._name), { element: this.el, value } as SignalPayload);
   }
 
   _onSignal(payload: SignalPayload) {
-    let {element, value} = payload;
+    const { element, value } = payload;
     if (element === this.el) {
       return;
     }
@@ -73,10 +73,10 @@ export class SignalInputController extends BaseController {
       (this.el as HTMLInputElement).value = value;
     }
     if (this.triggerChangeValue) {
-      this.dispatchEvent(this.el, 'change');
+      this.dispatchEvent(this.el, "change");
     }
     if (this.triggerInputValue) {
-      this.dispatchEvent(this.el, 'input');
+      this.dispatchEvent(this.el, "input");
     }
   }
 }

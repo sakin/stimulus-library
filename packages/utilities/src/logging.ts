@@ -43,11 +43,11 @@ export function logProperty(prop: string): boolean {
 }
 
 
-export function log(controller: Controller, functionName: string, args: {} = {}): void {
+export function log(controller: Controller, functionName: string, args: object = {}): void {
   if (!controller.application.debug) {
     return;
   }
-  let logger = console;
+  const logger = console;
   logger.groupCollapsed(...colorize(controller.identifier, "#3B82F6"), `#${functionName}`);
   logger.log({
     element: controller.element,
@@ -57,11 +57,11 @@ export function log(controller: Controller, functionName: string, args: {} = {})
   logger.groupEnd();
 }
 
-export function warn(controller: Controller, warning: string, args: {} = {}): void {
+export function warn(controller: Controller, warning: string, args: object = {}): void {
   if (!controller.application.debug) {
     return;
   }
-  let logger = console;
+  const logger = console;
   logger.groupCollapsed(...colorize(controller.identifier, "#F39B1AFF"), `!! ${warning} !!`);
   logger.warn({
     element: controller.element,
@@ -75,11 +75,11 @@ export function logEvent(controller: Controller, eventName: string, event: Custo
   if (!controller.application.debug) {
     return;
   }
-  let logger = console;
+  const logger = console;
   logger.groupCollapsed(
     ...colorizeMany([
-      {text: controller.identifier, color: "#3B82F6"},
-      {text: eventName, color: "#0be000"},
+      { text: controller.identifier, color: "#3B82F6" },
+      { text: eventName, color: "#0be000" },
     ]),
     event.detail,
   );
@@ -95,12 +95,12 @@ interface ColorMapping {
 }
 
 function colorize(text: string, color: string): string[] {
-  return colorizeMany([{text, color}]);
+  return colorizeMany([{ text, color }]);
 }
 
 function colorizeMany(texts: ColorMapping[]): string[] {
   let str = "";
-  let colors = texts.flatMap((x: ColorMapping) => {
+  const colors = texts.flatMap((x: ColorMapping) => {
     str += `%c${x.text}%c `;
     return [`color: ${x.color}`, "color: unset"];
   });

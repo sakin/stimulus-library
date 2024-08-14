@@ -1,8 +1,8 @@
 import { type Duration } from "date-fns";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import intervalToDuration from "date-fns/intervalToDuration";
-import isPast from "date-fns/isPast";
-import toDate from "date-fns/toDate";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
+import { intervalToDuration } from "date-fns/intervalToDuration";
+import { isPast } from "date-fns/isPast";
+import { toDate } from "date-fns/toDate";
 import { BaseController } from "@stimulus-library/utilities";
 import { useTimeout } from "@stimulus-library/mixins";
 
@@ -17,11 +17,11 @@ export class TimeDistanceController extends BaseController {
   declare _timestamp: Date;
 
   get _duration(): Duration {
-    return isPast(this._timestamp) ? intervalToDuration({start: this._timestamp, end: new Date()}) : intervalToDuration({start: new Date(), end: this._timestamp});
+    return isPast(this._timestamp) ? intervalToDuration({ start: this._timestamp, end: new Date() }) : intervalToDuration({ start: new Date(), end: this._timestamp });
   }
 
   get _nextUpdate(): number | null {
-    let duration = this._duration;
+    const duration = this._duration;
 
     if (duration.years && duration.years > 0) {
       return null;

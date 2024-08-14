@@ -2,7 +2,7 @@ import { EphemeralController } from "@stimulus-library/utilities";
 
 export class TeleportController extends EphemeralController {
 
-  static values = {target: String, insert: String, immediate: Boolean};
+  static values = { target: String, insert: String, immediate: Boolean };
 
   declare readonly immediateValue: boolean;
   declare readonly hasImmediateValue: boolean;
@@ -24,15 +24,15 @@ export class TeleportController extends EphemeralController {
 
   execute(event?: Event) {
     event?.preventDefault();
-    let element = this.el;
-    let destination = document.querySelector(this.targetValue);
+    const element = this.el;
+    const destination = document.querySelector(this.targetValue);
 
     if (destination == null) {
       this.dispatchEvent(element, this.eventName("error"));
       return;
     }
 
-    let copy = element.cloneNode(true) as HTMLElement;
+    const copy = element.cloneNode(true) as HTMLElement;
     this.cleanup(copy);
 
     switch (this.insertValue) {

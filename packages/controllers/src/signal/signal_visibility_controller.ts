@@ -10,7 +10,7 @@ export class SignalVisibilityController extends SignalBaseController {
     show: String,
   };
 
-  static classes = ['hide'];
+  static classes = ["hide"];
 
   declare nameValue: string;
   declare showValue: string;
@@ -31,7 +31,7 @@ export class SignalVisibilityController extends SignalBaseController {
   }
 
   _onSignal(payload: SignalPayload) {
-    let value = payload.value;
+    const value = payload.value;
     if (this.showValue == "default") {
       if (value == "") {
         this.removeHideClasses(this.el);
@@ -40,11 +40,29 @@ export class SignalVisibilityController extends SignalBaseController {
       }
       return;
     }
-    if (this.allPredicatesMatch(value)) {
-      this.dispatchEvent(this.el, signalVisibilityEvent(this.nameValue, "show"), {detail: {predicate: this.showValue, value}});
+    if (this.predicatesMatch(value)) {
+      this.dispatchEvent(
+        this.el,
+        signalVisibilityEvent(this.nameValue, "show"),
+        {
+          detail: {
+            predicate: this.showValue,
+            value,
+          },
+        },
+      );
       this.removeHideClasses(this.el);
     } else {
-      this.dispatchEvent(this.el, signalVisibilityEvent(this.nameValue, "hide"), {detail: {predicate: this.showValue, value}});
+      this.dispatchEvent(
+        this.el,
+        signalVisibilityEvent(this.nameValue, "hide"),
+        {
+          detail: {
+            predicate: this.showValue,
+            value,
+          },
+        },
+      );
       this.addHideClasses(this.el);
     }
   }

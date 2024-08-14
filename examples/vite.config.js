@@ -1,7 +1,7 @@
 // vite.config.js
-const { resolve } = require('path');
-const { defineConfig } = require('vite');
-const glob = require('tiny-glob');
+import glob from "tiny-glob";
+import { resolve } from "path";
+import { defineConfig } from "vite";
 
 async function processGlob(globStr, opts = { filesOnly: true }) {
   const entryPoints = await glob(globStr, opts);
@@ -18,7 +18,7 @@ export default defineConfig(async () => {
   return {
     server: {
       strictPort: true,
-      port: 3000,
+      port: 3030,
     },
     build: {
       rollupOptions: {
